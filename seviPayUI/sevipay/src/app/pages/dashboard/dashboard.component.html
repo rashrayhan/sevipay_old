@@ -1,0 +1,130 @@
+<div class="sidebar" data-color="rose" data-background-color="black" data-image="../assets/img/sidebar-1.jpg">
+    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+    <div class="dash-title">
+        Sevipay/Admin
+    </div>
+    <section>
+        <mat-action-list>
+            <button mat-list-item (click)="show('payments')" id="section-side"> Payment requests </button>
+            <button mat-list-item (click)="show('logs')" id="section-side"> View logs </button>
+        </mat-action-list>
+    </section>
+
+</div>
+<div class="main-panel">
+    <mat-sidenav-container class="sevi-nav-container">
+
+
+        <mat-sidenav position="end" #sidenav [opened]=opened mode="side" class="sevi-nav-content">
+            <section class="action-section" *ngIf="opened">
+                <div>
+                    <div class="row">
+                        <div class="done-ball">
+                            <div>
+                                <mat-icon>done</mat-icon>
+                            </div>
+                        </div>
+                        <div class="gap"></div>
+                        <div *ngIf="payment.status>=1" class="firstrowText">Order Recieved</div>
+                    </div>
+                    <div class="verticalLine"></div>
+                    <div class="row">
+                        <div *ngIf="payment.status>=2; else prog2" class="done-ball">
+                            <mat-icon>done</mat-icon>
+                        </div>
+                        <ng-template #prog2>
+                            <div class="done-ball prog-ball">
+                                <div>2</div>
+                            </div>
+                        </ng-template>
+                        <div class="gap"></div>
+                        <div *ngIf="payment.status>=2; else stage2" class="firstrowText">Payment made!</div>
+                        <ng-template #stage2>
+                            In progress
+                        </ng-template>
+
+                    </div>
+                    <div *ngIf="payment.status==3; else vert" class="verticalLine"></div>
+                    <ng-template #vert>
+                        <div class="verticalLine2"></div>
+                    </ng-template>
+                    <div class="row">
+                        <div *ngIf="payment.status==3; else prog3" class="done-ball">
+                            <mat-icon>done</mat-icon>
+                        </div>
+                        <ng-template #prog3>
+                            <div class="done-ball prog-ball">
+                                <div>3</div>
+                            </div>
+                        </ng-template>
+                        <div class="gap"></div>
+                        <div *ngIf="payment.status==3; else stage3" class="firstrowText">Payment Completed!</div>
+                        <ng-template #stage3>
+                            In progress
+                        </ng-template>
+
+                    </div>
+
+                </div><br>
+                <div class="pdfImage">
+                    <div class="image-pdf">
+                        <mat-icon class="icon-file">image</mat-icon>
+                        <div>No file</div>
+                    </div>
+                </div><br><br>
+
+                <section class="status-option" *ngIf="isStatus">
+                    <label id="example-radio-group-label">Select order status</label>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="selectedstatus">
+                        <div *ngFor="let status of statuses">
+                            <mat-radio-button class="example-radio-button" [value]="status.value">
+                                {{status.status}}
+                            </mat-radio-button>
+                        </div>
+
+                    </mat-radio-group>
+                    <div>Selected order status: {{selectedstatus}}</div>
+                </section>
+
+
+
+                <div class="bottom-nav">
+                    <button mat-raised-button class="mat-btn btn-size" (click)="showStatusOption()" *ngIf="!isStatus">open status</button>
+                    <button mat-raised-button class="mat-btn btn-size" (click)="updateStatus()" *ngIf="isStatus">update status</button>
+                    <div class="gap"></div>
+                    <button mat-raised-button class="mat-btn  btn-size">upload receipt</button>
+                </div>
+            </section>
+        </mat-sidenav>
+
+
+
+
+        <mat-sidenav-content>
+            <section *ngIf="page=='payments'" class="section-list">
+                <mat-list *ngFor="let payment of payments">
+                    <section class="per-list">
+
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
+                                <div> Name : {{payment.name}}</div>
+                                <div> State : {{payment.state}}</div>
+                                <div> Date : {{payment.date}}</div>
+                                <div> Name : {{payment.name}}</div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 pointer" (click)="openPayment(payment)">
+                                Action
+                            </div>
+                        </div>
+                    </section>
+                </mat-list>
+            </section>
+
+            <section *ngIf="page=='logs'" class="log-class">
+                <div *ngFor="let item of logs">
+                    This is to test that logs works. More log info is expected to be placed here when fully functional
+                </div>
+            </section>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

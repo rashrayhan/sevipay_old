@@ -1,0 +1,26 @@
+.center {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+}
+
+.sevy-card {
+    width: 35%;
+    box-shadow: 1px 1px 1px 2px rgb(219, 219, 219);
+    text-align: center;
+    padding: 52px 52px 52px 52px;
+}
+
+.mat-form-group {
+    height: 80px;
+    width: 100%;
+}
+
+.error-group {
+    height: 30px;
+    width: 100%;
+    text-align: left;
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+}
